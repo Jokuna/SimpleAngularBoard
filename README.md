@@ -1,5 +1,5 @@
 # SimpleAngularBoard
-SimpleAngularBoard for Angular v1.x beginners
+SimpleAngularBoard for Angular v1.x beginners<br/>
 You have to implement simple writing board by your own, using AngularJS and NodeJS.
 
 # Features 
