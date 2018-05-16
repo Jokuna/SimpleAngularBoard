@@ -1,26 +1,29 @@
-var express = require('express');
-var router = express.Router();
-var models = require('../models');
-var moment = require('moment');
+
+const express = require('express');
+const router = express.Router();
+const models = require('../models');
+const moment = require('moment');
 
 // Get post list
-router.get('/list/?*', function(req, res) {
-     models.Post.findAll({
-        order : 'id DESC'
-    }).then(function(boardSvArr) {
-        var boardCliArr = [];
-        boardSvArr.forEach(function(boardSv) {
-            var boardCli = {
-                id: boardSv.id,
-                title: boardSv.title,
-                author: boardSv.author,
-                time: moment(boardSv.updatedAt).format("YYYY-MM-DD")
-            };
-            boardCliArr.push(boardCli);
-        });
-        res.contentType('application/json');
-        res.send(boardCliArr);
-    });
+router.get('/list/?*', async (req, res) => {
+	try{
+	  const posts = await models.Post.findAll({
+	      order: 'id DESC',
+	      attributes: ['id','title','author','updatedAt']
+	  });
+
+	  await posts.map((post) => {
+	 		post.time = moment(post.updatedAt).format("YYYY-MM-DD");
+	 		return post;
+	  });
+
+	  res.contentType('application/json');
+		res.send(posts);
+	} catch(e){
+		res.send({
+			result: false
+		});
+	}
 });
 
 module.exports = router;
