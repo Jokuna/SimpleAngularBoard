@@ -9,7 +9,7 @@ router.get('/list/?*', async (req, res) => {
 	try{
 	  const posts = await models.Post.findAll({
 	      order: 'id DESC',
-	      attributes: ['id','title','author','updatedAt']
+	      attributes: ['id','title','content','author','updatedAt']
 	  });
 
 	  await posts.map((post) => {
@@ -25,8 +25,26 @@ router.get('/list/?*', async (req, res) => {
 	}
 });
 
+//Get single post
+router.get('/:id', async (req,res) => {
+	try{
+		const post = await models.Post.findOne({
+			where: {
+				id: req.params.id
+			},
+			attributes: ['id','title','content','author','updatedAt']
+		});
+
+		res.send(post);
+	} catch(e){
+		res.send({
+			result: false
+		});
+	}
+});
+
 //Write post
-router.post('/:id', async (req,res) => {
+router.post('/', async (req,res) => {
 	try{
 		const postCreate = await models.Post.create(req.body);
 
