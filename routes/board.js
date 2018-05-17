@@ -26,10 +26,10 @@ router.get('/list/?*', async (req, res) => {
 });
 
 //Write post
-router.post('/write', async (req,res) => {
+router.post('/:id', async (req,res) => {
 	try{
 		const postCreate = await models.Post.create(req.body);
-		
+
 		res.send({
 			result: true
 		});
@@ -41,7 +41,7 @@ router.post('/write', async (req,res) => {
 });
 
 //Edit post
-router.put('/edit/:id', async (req,res) => {
+router.put('/:id', async (req,res) => {
 	try{
 		const postUpdate = await models.Post.update(
 			req.body,
@@ -61,6 +61,7 @@ router.put('/edit/:id', async (req,res) => {
 		});
 	}
 });
+
 
 
 module.exports = router;
