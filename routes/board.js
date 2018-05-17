@@ -17,7 +17,6 @@ router.get('/list/?*', async (req, res) => {
 	 		return post;
 	  });
 
-	  res.contentType('application/json');
 		res.send(posts);
 	} catch(e){
 		res.send({
@@ -25,5 +24,20 @@ router.get('/list/?*', async (req, res) => {
 		});
 	}
 });
+
+//Write post
+router.post('/write', async (req,res) => {
+	try{
+		const postCreate = await models.Post.create(req.body);
+		res.send({
+			result: true
+		});
+	} catch(e){
+		res.send({
+			result: false
+		});
+	}
+});
+
 
 module.exports = router;
