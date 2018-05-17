@@ -9,6 +9,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             comment: "작성자 이름"
+        },
+        content: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            comment: '글 내용'
         }
     }, {
         tableName: 'post',
